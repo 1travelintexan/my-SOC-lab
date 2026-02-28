@@ -66,10 +66,11 @@ The next step was to find the correct query on Splunk to find when and how the b
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-sql.png?raw=true)
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-chart.png?raw=true)
 
-I configured SecurityOnion as shown in the screenshot:
+Once I found the brute force attack and I knew the IP of the attacker, I can try to find if they sucessfully cracked the password of the user 'ragnar':
 
-![2023-08-04_10-56-23](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/d62b059f-27a6-44a1-a3b8-8aedf6443807)
-
+![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_failed_and_sucess
+.png?raw=true)
+![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 After finishing the Security Onion installation, I needed a web interface to connect to Security Onion using the Management IP given.
 
 ![2023-07-02_15-43-59](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/239d6c7e-a948-4a7a-ab2b-ebcecc7e18e2)
