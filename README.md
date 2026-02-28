@@ -18,10 +18,10 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 - Host Operating System: Microsoft Windows 11 Pro
 
 <p align="center">
-<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/94dc0435-8ff5-4edd-b1b8-d8059460cca1" width="400" height="800" />
-<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/49eaf21d-2c84-4fdd-b54a-33d4185f509d" width="400" height="800" />
+<img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/pc.jpg?raw=true" width="400" height="800" style="object-fit: contain" />
+<h1>Virtual Machine Setup:</h1>
+<h3>I chose to use virtual box to create my internal Windows machine and the Kali Linux machine. With a bridged adaptor connection opposed to NAT connection</h3>
 </p>
-
 <h2>Part 1: Configuring Splunk</h2>
 <div>
 <section style=" height: 400px">
@@ -37,33 +37,14 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 <img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/IP_address.png?raw=true"  />
 </section>
 </div>
-I chose VMWare Workstation Pro as my hypervisor of choice. VirtualBox is another option, but I like the additional features of VMWare personally.
-
-First step of the process was installing and configuring <b>pfSense</b> as the firewall to segment the network and route traffic which will only be accessible from the Kali Linux machine.
-
-I configured pfSense as shown in the screenshot:
-
-![2023-07-02_14-05-40](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/8ed26011-2362-415c-ba4d-470d97409ea2)
-
-I added 5 network adapters and corresponded them with VMnet interfaces.
-
-- <b>NAT</b> - This is the connection for the virtual environment to the host PC and Internet.
-- <b>VMNet2</b> - This is the connection to the Kali VM which will be the attack machine and management interface for pfSense.
-- <b>VMNet3</b> - This is the connection to the Victim Domain Active Directory network which will simulate a corporate environment.
-- <b>VMNet4</b> - This is the connection to the all-in-one IDS Security Onion instance.
-- <b>VMNet5</b> - This is the span port connection that receives the frames from the interface connected to the victim domain network.
-- <b>VMNet6</b> - This is the connection to the Splunk instance which is our SIEM that will be ingesting Windows logs from the domain controller on the victim network.
 
 <h2>Part 2: Configuring Kali Linux as the Attack Machine</h2>
 
-After setting up I installed Kali Linux and before powering it on I changed the network adapter to VMNet2 and changed the memory to 4GB, then power it on and use default credentials. After powering the VM, I changed the default password in the terminal.
-
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
-I navigated to Firefox web browser and entered 192.168.1.1 and clicked 'Advanced' to access the pfSense WebConfigurator to make changes to the pfSense interface and firewall rules.
+I used hydra with my Kali linux Virtual Machine.
 
-![2023-07-02_23-29-20](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/6dcd7264-fbaa-4efd-a5af-71dd3a7d83ec)
-![2023-07-02_23-42-34](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/17167177-1a7e-406a-a1a5-1d818cc3129f)
+![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/hydra.png?raw=true)
 
 <h2>Part 3: Configuring SecurityOnion and SOC Analyst Machine</h2>
 
