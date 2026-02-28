@@ -42,9 +42,18 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
-I used hydra with my Kali linux Virtual Machine.
+hydra on Kali linux Virtual Machine used to crack the login password of a known username.
 
 ![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/hydra.png?raw=true)
+
+<h2>Command explained:</h2>
+
+- '-l' is for the known username (ragnar)
+- '-P' is for the path to the rockyou password list given by Kali
+- 'smb2' is the new version of smb because the Windows 11 blocks the older version of smb
+- '-V' is for the real time log of each attempt at cracking the password
+- '-f' is for exiting as soon as a correct match is found
+- '-t 1' is to not run in parallel, this makes each attempt serial instead
 
 <h2>Part 3: Configuring SecurityOnion and SOC Analyst Machine</h2>
 
