@@ -66,11 +66,25 @@ The next step was to find the correct query on Splunk to find when and how the b
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-sql.png?raw=true)
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-chart.png?raw=true)
 
+<h3>
 Once I found the brute force attack and I knew the IP of the attacker, I can try to find if they sucessfully cracked the password of the user 'ragnar':
+</h3>
 
-![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_failed_and_sucess.png?raw=true)
+![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_failed_and_success.png?raw=true)
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
-After finishing the Security Onion installation, I needed a web interface to connect to Security Onion using the Management IP given.
+
+<h2>Splunk Processing Language explained:</h2>
+
+- index= "lab_attacks" => is the specfic index that I directed the attacks to
+- (EventCode=4624 OR EventCode=4625) => is for failed or successful logon attempts
+- eval is_ragnar=if(searchmatch("ragnar"), "YES", "NO") => is to create a new feild that establishes if the event has the string 'ragnar' in it.
+- where is_ragnar="YES" => is to filter out all events that do not include the string 'ragnar'
+- stats
+  count(eval(EventCode=4625)) as Total_Fails,
+  count(eval(EventCode=4624)) as Total_Successes
+  by index' is to count all the failed attempts and all the successful attempts
+- eval User="ragnar" => is to create a feild named User that is always 'ragnar'
+- table User, Total_Fails, Total_Successes => creates a table with the three feilds that I need to see
 
 ![2023-07-02_15-43-59](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/239d6c7e-a948-4a7a-ab2b-ebcecc7e18e2)
 
