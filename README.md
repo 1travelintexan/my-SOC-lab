@@ -42,6 +42,10 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
+Update hydra so it can use smb2 as the smb orginal was being blocked
+
+![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/update-hydra.png?raw=true)
+
 hydra on Kali linux Virtual Machine used to crack the login password of a known username.
 
 ![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/hydra.png?raw=true)
