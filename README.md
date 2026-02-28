@@ -1,45 +1,32 @@
-# Setting up my Cybersecurity Detection &amp; Monitoring Lab
+# Cybersecurity Detection &amp; Monitoring Lab
 
+Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a deep understanding of application architecture to build and secure robust digital environments. This repository documents my hands-on SOC Home Lab, where I apply the principles earned through my Security+, Google Cybersecurity, and Splunk Core/Power User certifications. My goal is to bridge the gap between software development and threat hunting by simulating real-world attack vectors—such as SMB brute-forcing and persistence mechanisms—and engineering precise detection logic within Splunk to identify and mitigate them.
 
-When I decided to pursue a career in Information Technology and Cybersecurity, I discovered the best way to gain experience and retain what I learned is through creating projects and homelabs.
+## 🛡️ Certifications
 
-For aspiring cybersecurity looking to enter the field and professional security analysts who are already in the cybersecurity field, having a home lab is crucial for gaining familiarity with tools, configurations, and simulating attacks.
-
-It's also a very common interview question that comes up and it could be the difference between you and the other person who doesn't have one.
-
-
-The setup of my home lab was influenced by Cyberwox Academy's [Cybersecurity and Detection Monitoring lab](https://cyberwoxacademy.com/building-a-cybersecurity-homelab-for-detection-monitoring/) by Day Johnson, with additional adjustments made to replicate a hybrid cloud environment by incorporating Microsoft Azure services.
-
+![Security+](https://img.shields.io/badge/Certification-Security%2B-blue)
+![Splunk Power User](https://img.shields.io/badge/Splunk-Power%20User-green)
+![Google Cyber](https://img.shields.io/badge/Google-Cybersecurity-orange)
 
 <h2>Hardware Specs for the Host PC:</h2>
 
-- CPU: AMD Octa-Core Ryzen 7 5800X
+- CPU: AMD Ryzen 7 5700X3d (8 Core Procesor)
 - RAM: 64GB
 - Storage: 2TB SSD
-- Graphics Card:  GeForce RTX 3070 8GB
-- Motherboard: Asus G15DK
+- Graphics Card: AMD Radeon RX 6600
+- Motherboard: TUF Gaming B550-Plus WIFI II
 - Host Operating System: Microsoft Windows 11 Pro
 
-
-I chose to make an investment in a gaming PC, not only for enjoying games, but also for bolstering the infrastructure of my cybersecurity endeavors. Although my laptop boasted 16GB of RAM, I opted for a high-performance system to ensure I could create more robust labs in the future. If it fits within your budget, I strongly recommend making the investment. I'd love to provide you with the Amazon link I used for my purchase, but regrettably, it's no longer accessible.
-
-
-
-
-
-
 <p align="center">
-<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/94dc0435-8ff5-4edd-b1b8-d8059460cca1" width="400" height="800" /><img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/49eaf21d-2c84-4fdd-b54a-33d4185f509d" width="400" height="800" />
-
+<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/94dc0435-8ff5-4edd-b1b8-d8059460cca1" width="400" height="800" />
+<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/49eaf21d-2c84-4fdd-b54a-33d4185f509d" width="400" height="800" />
 </p>
 
-
-![Cyber Lab](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/737c66fd-8314-4f89-9485-eafb5687b1e2)
-
-
-
-<h2>Part 1: Configuring pfSense</h2>
-
+<h2>Part 1: Configuring Splunk</h2>
+<p align="center">
+<img src="https://github.com/1travelintexan/my-SOC-lab/images/splunk_config.png" width="400" height="800" />
+<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/49eaf21d-2c84-4fdd-b54a-33d4185f509d" width="400" height="800" />
+</p>
 I chose VMWare Workstation Pro as my hypervisor of choice. VirtualBox is another option, but I like the additional features of VMWare personally.
 
 First step of the process was installing and configuring <b>pfSense</b> as the firewall to segment the network and route traffic which will only be accessible from the Kali Linux machine.
@@ -57,7 +44,6 @@ I added 5 network adapters and corresponded them with VMnet interfaces.
 - <b>VMNet5</b> - This is the span port connection that receives the frames from the interface connected to the victim domain network.
 - <b>VMNet6</b> - This is the connection to the Splunk instance which is our SIEM that will be ingesting Windows logs from the domain controller on the victim network.
 
-
 <h2>Part 2: Configuring Kali Linux as the Attack Machine</h2>
 
 After setting up I installed Kali Linux and before powering it on I changed the network adapter to VMNet2 and changed the memory to 4GB, then power it on and use default credentials. After powering the VM, I changed the default password in the terminal.
@@ -73,19 +59,17 @@ I navigated to Firefox web browser and entered 192.168.1.1 and clicked 'Advanced
 
 The next step was to install SecurityOnion. SecurityOnion is an open-source platform designed for network security monitoring and intrusion detection. It helps organizations analyze and defend their network infrastructure against potential threats and attacks.
 
-I installed the Security Onion ISO from here: https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO.md 
+I installed the Security Onion ISO from here: https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO.md
 
 ![2023-07-02_14-46-01](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/efb885b3-9625-456e-8bff-a544ae79d591)
 
 I configured SecurityOnion as shown in the screenshot:
-
 
 ![2023-08-04_10-56-23](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/d62b059f-27a6-44a1-a3b8-8aedf6443807)
 
 After finishing the Security Onion installation, I needed a web interface to connect to Security Onion using the Management IP given.
 
 ![2023-07-02_15-43-59](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/239d6c7e-a948-4a7a-ab2b-ebcecc7e18e2)
-
 
 I downloaded and installed Ubuntu Desktop as my Security Analyst machine to simulate a SOC/Security Analyst accessing a SIEM. In this scenario to access Security Onion's web interface.
 
@@ -95,11 +79,9 @@ I downloaded and installed Ubuntu Desktop as my Security Analyst machine to simu
 
 ![2023-07-03_10-17-27](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/9a672f3c-1838-4029-8270-5295a5e1247c)
 
-
 <h2>Part 4: Configuring Windows Server 2019 as a Domain Controller</h2>
 
 In this lab segment, I established an Active Directory domain using Windows Server 2019 as the Domain Controller, alongside two Windows 10 Pro virtual machines. Following this initial setup, I proceeded to rename the Domain Controller (GAVINPAUL-DC), initiated a restart, and then installed Active Directory Domain Services while configuring Active Directory Certificate Services through the Server Manager dashboard on the designated server.
-
 
 <h2>Part 5: Automating Users with PowerShell</h2>
 
@@ -109,8 +91,8 @@ In this lab section, I aimed to simulate the Active Directory environment of a s
 
 ![2023-07-16_18-37-43](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/af26d541-6eb6-49e5-a08b-a2bcd349caf0)
 
-
 **The two resources I used to learn PowerShell:**
+
 - [Learn Powershell in a Month of Lunches by Travis Plunk and James Petty](https://www.amazon.com/Learn-PowerShell-Month-Lunches-Windows/dp/1617296961/ref=sr_1_1?crid=2WCEOQMNNGTF3&keywords=learn+powershell+in+a+month+of+lunches&qid=1695219714&sprefix=learn+powershe%2Caps%2C239&sr=8-1)
 - [Learn Powershell Scripting in a Month of Lunches by Dom Jones and Jeffery Hicks](https://www.amazon.com/sspa/click?ie=UTF8&spc=MTozNzg2OTk3MDYyODQ5NjI3OjE2OTUyMTk3MTU6c3Bfc2VhcmNoX3RoZW1hdGljOjIwMDE1NDM2MzU0OTQ5ODo6MDo6&url=%2FLearn-PowerShell-Scripting-Month-Lunches%2Fdp%2F1617295094%2Fref%3Dsxin_15_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%253Aamzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%26crid%3D2WCEOQMNNGTF3%26cv_ct_cx%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26keywords%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26pd_rd_i%3D1617295094%26pd_rd_r%3Dce8f7f52-4263-4740-9f8b-5adffaf2ebd5%26pd_rd_w%3DGG1o2%26pd_rd_wg%3DsUGtF%26pf_rd_p%3D021cacdc-698c-497f-aed0-8965849c4c44%26pf_rd_r%3DA64X22YVY2FC940W14BN%26qid%3D1695219714%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sprefix%3Dlearn%2Bpowershe%252Caps%252C239%26sr%3D1-1-6caf8c80-d701-4184-90ff-f670949d61c2-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1)
 
@@ -131,7 +113,6 @@ Enter domain name.local (GAVINPAUL.local for me)
 
 ![2023-07-03_01-08-20](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/bee07866-5f59-4c8d-82a1-e771fdb71a2e)
 
-
 <h2>Part 7: Installing Splunk on Ubuntu Server </h2>
 
 The next step was setting up my Splunk instance. This was pretty straightforward. I installed Ubuntu Server from Ubuntu.com and followed the steps. To access the GUI, I needed to install tasksel and reboot.
@@ -142,13 +123,11 @@ Once I was able to access the GUI and get past the initial setup, I navigated to
 
 ![2023-07-03_01-52-12](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/0065797d-4d89-4a61-a7bd-ac977a63079b)
 
-
-
 ![2023-07-03_02-08-25](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/3393b2e2-01a6-48e8-9dca-f54b34a5c096)
 
 After installing Splunk to the Downloads folder, I unzipped it using the tar command using the following command:
 
-<b>```tar -xvzf splunk```</b>
+<b>`tar -xvzf splunk`</b>
 
 I navigated to bin directory and accepted the terms and created admin credentials to log into Splunk.
 
@@ -158,22 +137,19 @@ Once Splunk is up in running, I navigated to web server URL using Firefox and lo
 
 ![2023-07-03_02-14-46](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/21c92a8d-d2ab-4e1d-b858-e9ac41a9447e)
 
-
 ![2023-07-03_02-21-09](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2651ed82-621a-413b-8fc9-bf8945ec4675)
-
-
 
 <h2>Part 8: Installing Universal Forwarder on Windows Server </h2>
 
 With Splunk successfully installed, the subsequent task involved installing the Universal Forwarder to capture and transmit activity logs from my Domain Controller to the Splunk SIEM.
 
-I navigated back to Windows Server VM and installed Google Chrome before downloading the Splunk Universal Forwarder. 
+I navigated back to Windows Server VM and installed Google Chrome before downloading the Splunk Universal Forwarder.
 
 ![2023-07-03_02-37-34](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/184e0109-1312-44ca-a176-4c4d2a48fa3d)
 
 ![2023-07-03_02-40-16](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/d72335b3-fe9d-4ad9-98f3-d90815b8256b)
 
-- Once downloaded, I logged back into my Splunk machine and logged into Splunk and navigated to Settings > Forward and Receiving > Configure receiving. 
+- Once downloaded, I logged back into my Splunk machine and logged into Splunk and navigated to Settings > Forward and Receiving > Configure receiving.
 
 - Clicked the top right green 'New Receiving Port' button.
 
