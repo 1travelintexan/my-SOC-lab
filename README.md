@@ -23,10 +23,20 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 </p>
 
 <h2>Part 1: Configuring Splunk</h2>
-<p align="center">
-<img src="https://github.com/1travelintexan/my-SOC-lab/images/splunk_config.png" width="400" height="800" />
-<img src="https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/49eaf21d-2c84-4fdd-b54a-33d4185f509d" width="400" height="800" />
-</p>
+<div>
+<section style=" height: 400px">
+<p>Setting the inputs.conf file </p>
+<img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_config.png?raw=true"  />
+</section>
+<section style=" height: 550px">
+<p>Allow the VM Windows machine firewalls to accept brute force requests</p>
+<img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/firewalls.png?raw=true" style="object-fit: contain; margin: 0px" />
+</section>
+<section style="height: 400px">
+<p>Set IP address of the VM Windows machine to an easy number</p>
+<img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/IP_address.png?raw=true"  />
+</section>
+</div>
 I chose VMWare Workstation Pro as my hypervisor of choice. VirtualBox is another option, but I like the additional features of VMWare personally.
 
 First step of the process was installing and configuring <b>pfSense</b> as the firewall to segment the network and route traffic which will only be accessible from the Kali Linux machine.
