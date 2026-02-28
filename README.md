@@ -42,7 +42,7 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
-Update hydra so it can use smb2 as the smb orginal was being blocked
+Update hydra and its dependencies so it can use smb2 as the smb orginal was being blocked
 
 ![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/update-hydra.png?raw=true)
 
@@ -59,13 +59,12 @@ hydra on Kali linux Virtual Machine used to crack the login password of a known 
 - '-f' is for exiting as soon as a correct match is found
 - '-t 1' is to not run in parallel, this makes each attempt serial instead
 
-<h2>Part 3: Configuring SecurityOnion and SOC Analyst Machine</h2>
+<h2>Filter logs on splunk to find the brute force attack and trace its origins</h2>
 
-The next step was to install SecurityOnion. SecurityOnion is an open-source platform designed for network security monitoring and intrusion detection. It helps organizations analyze and defend their network infrastructure against potential threats and attacks.
+The next step was to find the correct query on Splunk to find when and how the brute force attack was executed.
 
-I installed the Security Onion ISO from here: https://github.com/Security-Onion-Solutions/securityonion/blob/master/VERIFY_ISO.md
-
-![2023-07-02_14-46-01](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/efb885b3-9625-456e-8bff-a544ae79d591)
+![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-sql.png?raw=true)
+![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-chart.png?raw=true)
 
 I configured SecurityOnion as shown in the screenshot:
 
