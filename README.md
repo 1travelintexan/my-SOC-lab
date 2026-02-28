@@ -71,7 +71,6 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 </h3>
 
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_failed_and_success.png?raw=true)
-![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 
 <h2>Splunk Processing Language explained:</h2>
 
@@ -85,6 +84,10 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
   by index' is to count all the failed attempts and all the successful attempts
 - eval User="ragnar" => is to create a feild named User that is always 'ragnar'
 - table User, Total_Fails, Total_Successes => creates a table with the three feilds that I need to see
+
+<h2>The Result of detecting a brute force attack:</h2>
+
+![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 
 ![2023-07-02_15-43-59](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/239d6c7e-a948-4a7a-ab2b-ebcecc7e18e2)
 
