@@ -117,7 +117,7 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 
 <h1>Part 5: Detecting Persistence with Splunk</h1>
 
-In this lab segment, I established an Active Directory domain using Windows Server 2019 as the Domain Controller, alongside two Windows 10 Pro virtual machines. Following this initial setup, I proceeded to rename the Domain Controller (GAVINPAUL-DC), initiated a restart, and then installed Active Directory Domain Services while configuring Active Directory Certificate Services through the Server Manager dashboard on the designated server.
+After successfully attacking the Windows machine with SMB and creating a new admin user named haxor, I need to find these logs in splunk to follow the attack path.
 
 <h2>Part 6: Automating Users with PowerShell</h2>
 
@@ -131,68 +131,3 @@ In this lab section, I aimed to simulate the Active Directory environment of a s
 
 - [Learn Powershell in a Month of Lunches by Travis Plunk and James Petty](https://www.amazon.com/Learn-PowerShell-Month-Lunches-Windows/dp/1617296961/ref=sr_1_1?crid=2WCEOQMNNGTF3&keywords=learn+powershell+in+a+month+of+lunches&qid=1695219714&sprefix=learn+powershe%2Caps%2C239&sr=8-1)
 - [Learn Powershell Scripting in a Month of Lunches by Dom Jones and Jeffery Hicks](https://www.amazon.com/sspa/click?ie=UTF8&spc=MTozNzg2OTk3MDYyODQ5NjI3OjE2OTUyMTk3MTU6c3Bfc2VhcmNoX3RoZW1hdGljOjIwMDE1NDM2MzU0OTQ5ODo6MDo6&url=%2FLearn-PowerShell-Scripting-Month-Lunches%2Fdp%2F1617295094%2Fref%3Dsxin_15_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%253Aamzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%26crid%3D2WCEOQMNNGTF3%26cv_ct_cx%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26keywords%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26pd_rd_i%3D1617295094%26pd_rd_r%3Dce8f7f52-4263-4740-9f8b-5adffaf2ebd5%26pd_rd_w%3DGG1o2%26pd_rd_wg%3DsUGtF%26pf_rd_p%3D021cacdc-698c-497f-aed0-8965849c4c44%26pf_rd_r%3DA64X22YVY2FC940W14BN%26qid%3D1695219714%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sprefix%3Dlearn%2Bpowershe%252Caps%252C239%26sr%3D1-1-6caf8c80-d701-4184-90ff-f670949d61c2-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1)
-
-<h2>Part 6: Setting up Windows 10 PC and Adding to AD Domain </h2>
-
-After generating the users, I added the two Windows 10 VMs to the Victim network **(VMnet3)**.
-
-I navigated to Network Adapter settings, right clicked on Ethernet, selected Properties.
-
-- Selected IPv4 and added IP Address <b>192.168.2.1</b> as the default gateway and <b>192.168.2.10 (Victim Network)</b> as the DNS Server.
-
-Search "domain" in the search bar and select Access work or school option.
-
-Selected 'Connect' > 'Join this device to local Active Directory Domain
-
-Enter domain name.local (GAVINPAUL.local for me)
-![2023-07-03_01-07-55](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/d5ffa57b-9fc5-40e5-a70e-995551d06fa5)
-
-![2023-07-03_01-08-20](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/bee07866-5f59-4c8d-82a1-e771fdb71a2e)
-
-<h2>Part 7: Installing Splunk on Ubuntu Server </h2>
-
-The next step was setting up my Splunk instance. This was pretty straightforward. I installed Ubuntu Server from Ubuntu.com and followed the steps. To access the GUI, I needed to install tasksel and reboot.
-
-Once I was able to access the GUI and get past the initial setup, I navigated to Firefox to install Splunk from their website.
-
-![2023-07-03_01-31-52](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/8305afe5-0fa5-4c3b-bb57-e13141c8740d)
-
-![2023-07-03_01-52-12](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/0065797d-4d89-4a61-a7bd-ac977a63079b)
-
-![2023-07-03_02-08-25](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/3393b2e2-01a6-48e8-9dca-f54b34a5c096)
-
-After installing Splunk to the Downloads folder, I unzipped it using the tar command using the following command:
-
-<b>`tar -xvzf splunk`</b>
-
-I navigated to bin directory and accepted the terms and created admin credentials to log into Splunk.
-
-![2023-07-03_02-11-39](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/1aa052fb-b9f6-4c3f-a314-a410cc25a1e6)
-
-Once Splunk is up in running, I navigated to web server URL using Firefox and logged into Splunk.
-
-![2023-07-03_02-14-46](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/21c92a8d-d2ab-4e1d-b858-e9ac41a9447e)
-
-![2023-07-03_02-21-09](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2651ed82-621a-413b-8fc9-bf8945ec4675)
-
-<h2>Part 8: Installing Universal Forwarder on Windows Server </h2>
-
-With Splunk successfully installed, the subsequent task involved installing the Universal Forwarder to capture and transmit activity logs from my Domain Controller to the Splunk SIEM.
-
-I navigated back to Windows Server VM and installed Google Chrome before downloading the Splunk Universal Forwarder.
-
-![2023-07-03_02-37-34](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/184e0109-1312-44ca-a176-4c4d2a48fa3d)
-
-![2023-07-03_02-40-16](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/d72335b3-fe9d-4ad9-98f3-d90815b8256b)
-
-- Once downloaded, I logged back into my Splunk machine and logged into Splunk and navigated to Settings > Forward and Receiving > Configure receiving.
-
-- Clicked the top right green 'New Receiving Port' button.
-
-- Enter 9997 and then click save so Splunk will listen for inbound connections from the Universal Forwarder on port 9997.
-
-<i>(Port 9997 is the default port for Splunk's data forwarding protocol. Universal Forwarders, which are lightweight Splunk components installed on source machines, use this port to send data (logs and other events) to the Splunk Indexer. It facilitates the secure and efficient transmission of data from source to destination.)</i>
-
-The subsequent task involved establishing an index dedicated to Windows Event Logs within Splunk. In Splunk's context, an index serves as a storage repository for its data. Initially, data that hasn't yet been integrated into Splunk is considered raw data. Once ingested into Splunk, it undergoes indexing, which essentially means that Splunk processes and organizes the data, resulting in the formation of event data. These event data units are referred to as individual events.
-
-![2023-07-03_02-21-09](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2651ed82-621a-413b-8fc9-bf8945ec4675)
