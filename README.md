@@ -117,10 +117,6 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 
 <h1>Part 5: Detecting Persistence with Splunk</h1>
 
-After successfully attacking the Windows machine with SMB and creating a new admin user named haxor, I need to find these logs in splunk to follow the attack path.
-
-<h2>Part 6: Automating Users with PowerShell</h2>
-
 ### With Sysmon installed on the Windows machine, I look for an EventCode of "1" to see if something is created.
 
 ![2023-07-16_18-29-39](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/spl_EventCode_1.png?raw=true)
@@ -129,7 +125,4 @@ After successfully attacking the Windows machine with SMB and creating a new adm
 
 ![2023-07-16_18-29-39](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/user_added.png?raw=true)
 
-### Now I can follow this new user to see what he is doing
-
-- [Learn Powershell in a Month of Lunches by Travis Plunk and James Petty](https://www.amazon.com/Learn-PowerShell-Month-Lunches-Windows/dp/1617296961/ref=sr_1_1?crid=2WCEOQMNNGTF3&keywords=learn+powershell+in+a+month+of+lunches&qid=1695219714&sprefix=learn+powershe%2Caps%2C239&sr=8-1)
-- [Learn Powershell Scripting in a Month of Lunches by Dom Jones and Jeffery Hicks](https://www.amazon.com/sspa/click?ie=UTF8&spc=MTozNzg2OTk3MDYyODQ5NjI3OjE2OTUyMTk3MTU6c3Bfc2VhcmNoX3RoZW1hdGljOjIwMDE1NDM2MzU0OTQ5ODo6MDo6&url=%2FLearn-PowerShell-Scripting-Month-Lunches%2Fdp%2F1617295094%2Fref%3Dsxin_15_pa_sp_search_thematic_sspa%3Fcontent-id%3Damzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%253Aamzn1.sym.021cacdc-698c-497f-aed0-8965849c4c44%26crid%3D2WCEOQMNNGTF3%26cv_ct_cx%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26keywords%3Dlearn%2Bpowershell%2Bin%2Ba%2Bmonth%2Bof%2Blunches%26pd_rd_i%3D1617295094%26pd_rd_r%3Dce8f7f52-4263-4740-9f8b-5adffaf2ebd5%26pd_rd_w%3DGG1o2%26pd_rd_wg%3DsUGtF%26pf_rd_p%3D021cacdc-698c-497f-aed0-8965849c4c44%26pf_rd_r%3DA64X22YVY2FC940W14BN%26qid%3D1695219714%26sbo%3DRZvfv%252F%252FHxDF%252BO5021pAnSA%253D%253D%26sprefix%3Dlearn%2Bpowershe%252Caps%252C239%26sr%3D1-1-6caf8c80-d701-4184-90ff-f670949d61c2-spons%26sp_csd%3Dd2lkZ2V0TmFtZT1zcF9zZWFyY2hfdGhlbWF0aWM%26psc%3D1)
+### Now I can search for him and see when he is logged in and I have successfully found the backdoor.
