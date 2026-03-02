@@ -1,4 +1,4 @@
-# Cybersecurity Detection &amp; Monitoring Lab
+p# Cybersecurity Detection &amp; Monitoring Lab
 
 Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a deep understanding of application architecture to build and secure robust digital environments. This repository documents my hands-on SOC Home Lab, where I apply the principles earned through my Security+, Google Cybersecurity, and Splunk Core/Power User certifications. My goal is to bridge the gap between software development and threat hunting by simulating real-world attack vectors—such as SMB brute-forcing and persistence mechanisms—and engineering precise detection logic within Splunk to identify and mitigate them.
 
@@ -89,15 +89,27 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 
-![2023-07-02_15-43-59](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/239d6c7e-a948-4a7a-ab2b-ebcecc7e18e2)
+<h2>Creating Persistence:</h2>
 
-I downloaded and installed Ubuntu Desktop as my Security Analyst machine to simulate a SOC/Security Analyst accessing a SIEM. In this scenario to access Security Onion's web interface.
+<p>Create a file on the Kali machine (backdoor.ps1) that will add a new user in administrators named (haxor)</p>
 
-![2023-07-02_16-11-19](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/3ad77626-8685-4d84-b78d-99fe4105cb5d)
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/create_backdoor.png?raw=true)
 
-![2023-07-03_10-18-40](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/5d590acc-acec-4cbf-95ca-1905f2dc37f9)
+<p>Login to the Windows machine as Ragnar and use SMB to 'put' the backdoor file onto the Windows machine </p>
 
-![2023-07-03_10-17-27](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/9a672f3c-1838-4029-8270-5295a5e1247c)
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/create_backdoor_file.png?raw=true)
+
+<p>Use impacket to execute the backdoor file as Ragnar from the Kali machine</p>
+
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/execute_backdoor.png?raw=true)
+
+<p>Use impacket to exfiltrate all the Users from the Windows machine with their password hashes </p>
+
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/exfiltrate_hashes.png?raw=true)
+
+<p>Use John the Ripper from Kali machine to crack the Users hashes in the loot_hashes file</p>
+
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/cracking_hashes.png?raw=true)
 
 <h2>Part 4: Configuring Windows Server 2019 as a Domain Controller</h2>
 
