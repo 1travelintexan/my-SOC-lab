@@ -121,11 +121,13 @@ After successfully attacking the Windows machine with SMB and creating a new adm
 
 <h2>Part 6: Automating Users with PowerShell</h2>
 
-In this lab section, I aimed to simulate the Active Directory environment of a small to medium-sized business, opting for a more realistic approach by creating 1000 users, even though it wasn't a requirement. To accomplish this, I employed a Powershell script from Josh Madakor's AD Lab on YouTube and drew upon my investment in two Powershell books from the previous year to enhance my knowledge in the field.
+### With Sysmon installed on the Windows machine, I look for an EventCode of "1" to see if something is created.
 
-![2023-07-16_18-29-39](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/dc8252d2-8177-47c4-a68e-ba97cf1e5e17)
+![2023-07-16_18-29-39](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/commandline.png?raw=true)
 
-![2023-07-16_18-37-43](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/af26d541-6eb6-49e5-a08b-a2bcd349caf0)
+### Found suspicous process that added a new user to the administrators group
+
+![2023-07-16_18-29-39](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/user_added.png?raw=true)
 
 **The two resources I used to learn PowerShell:**
 
