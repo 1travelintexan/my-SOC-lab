@@ -8,7 +8,7 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 ![Splunk Power User](https://img.shields.io/badge/Splunk-Power%20User-green)
 ![Google Cyber](https://img.shields.io/badge/Google-Cybersecurity-orange)
 
-<h1>Part 1: Hardware Specs for the Host PC:</h1>
+# Part 1: Hardware Specs for the Host PC:
 
 - CPU: AMD Ryzen 7 5700X3d (8 Core Procesor)
 - RAM: 64GB
@@ -20,7 +20,7 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 <p align="center">
 <img src="https://github.com/1travelintexan/my-SOC-lab/blob/main/images/pc.jpg?raw=true" width="400" height="800" style="object-fit: contain" />
 <h1>Virtual Machine Setup:</h1>
-<h3>I chose to use virtual box to create my internal Windows machine and the Kali Linux machine. With a bridged adaptor connection opposed to NAT connection</h3>
+<h3>I chose to use virtual box to create my internal Windows machine and the Kali Linux machine. With a bridged adaptor connection opposed to NAT connection to allow them to communicate with each other.</h3>
 </p>
 <h2>Part 1: Configuring Splunk</h2>
 <div>
@@ -38,19 +38,19 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 </section>
 </div>
 
-<h1>Part 2: Configuring Kali Linux as the Attack Machine</h1>
+# Part 2: Configuring Kali Linux as the Attack Machine
 
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
-Update hydra and its dependencies so it can use smb2 as the smb orginal was being blocked
+### Update hydra and its dependencies so it can use smb2 as the smb orginal was being blocked
 
 ![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/update-hydra.png?raw=true)
 
-hydra on Kali linux Virtual Machine used to crack the login password of a known username.
+### hydra on Kali linux Virtual Machine used to crack the login password of a known username.
 
 ![2023-07-02_23-29-20](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/hydra.png?raw=true)
 
-<h2>Command explained:</h2>
+## Command explained:
 
 - '-l' is for the known username (ragnar)
 - '-P' is for the path to the rockyou password list given by Kali
@@ -59,20 +59,18 @@ hydra on Kali linux Virtual Machine used to crack the login password of a known 
 - '-f' is for exiting as soon as a correct match is found
 - '-t 1' is to not run in parallel, this makes each attempt serial instead
 
-<h1>Part 3: Use Splunk to detect the brute force attack</h1>
+# Part 3: Use Splunk to detect the brute force attack
 
-The next step was to find the correct query on Splunk to find when and how the brute force attack was executed.
+### The next step was to find the correct query on Splunk to find when and how the brute force attack was executed.
 
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-sql.png?raw=true)
 ![2023-07-02_14-46-01](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk-failed-chart.png?raw=true)
 
-<h3>
-Once I found the brute force attack and I knew the IP of the attacker, I can try to find if they sucessfully cracked the password of the user 'ragnar':
-</h3>
+### Once I found the brute force attack and I knew the IP of the attacker, I can try to find if they sucessfully cracked the password of the user 'ragnar':
 
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_failed_and_success.png?raw=true)
 
-<h2>Splunk Processing Language explained:</h2>
+## Splunk Processing Language explained:
 
 - index= "lab_attacks" => is the specfic index that I directed the attacks to
 - (EventCode=4624 OR EventCode=4625) => is for failed or successful logon attempts
@@ -85,37 +83,37 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 - eval User="ragnar" => is to create a feild named User that is always 'ragnar'
 - table User, Total_Fails, Total_Successes => creates a table with the three feilds that I need to see
 
-<h2>The Result of detecting a brute force attack:</h2>
+## The Result of detecting a brute force attack:
 
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 
-<h1>Part 4: Creating Persistence:</h1>
+# Part 4: Creating Persistence:
 
-<p>Create a file on the Kali machine (backdoor.ps1) that will add a new user in administrators named (haxor)</p>
+### Create a file on the Kali machine (backdoor.ps1) that will add a new user in administrators named (haxor)
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/create_backdoor.png?raw=true)
 
-<p>Login to the Windows machine as Ragnar and use SMB to 'put' the backdoor file onto the Windows machine </p>
+### Login to the Windows machine as Ragnar and use SMB to 'put' the backdoor file onto the Windows machine
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/create_backdoor_file.png?raw=true)
 
-<p>Use impacket to execute the backdoor file as Ragnar from the Kali machine</p>
+### Use impacket to execute the backdoor file as Ragnar from the Kali machine
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/execute_backdoor.png?raw=true)
 
-<p>Use impacket to exfiltrate all the Users from the Windows machine with their password hashes </p>
+### Use impacket to exfiltrate all the Users from the Windows machine with their password hashes
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/exfiltrate_hashes.png?raw=true)
 
-<p>Use John the Ripper from Kali machine to crack the Users hashes in the loot_hashes file</p>
+### Use John the Ripper from Kali machine to crack the Users hashes in the loot_hashes file
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/cracking_hashes.png?raw=true)
 
-<p>Show all the passwords cracked that were exfiltrated</p>
+### Show all the passwords cracked that were exfiltrated
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/show_cracked_hashes.png?raw=true)
 
-<h1>Part 5: Detecting Persistence with Splunk</h1>
+# Part 5: Detecting Persistence with Splunk
 
 ### With Sysmon installed on the Windows machine, I look for an EventCode of "1" to see if something is created.
 
