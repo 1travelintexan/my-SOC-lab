@@ -1,4 +1,4 @@
-p# Cybersecurity Detection &amp; Monitoring Lab
+# Cybersecurity Detection &amp; Monitoring Lab
 
 Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a deep understanding of application architecture to build and secure robust digital environments. This repository documents my hands-on SOC Home Lab, where I apply the principles earned through my Security+, Google Cybersecurity, and Splunk Core/Power User certifications. My goal is to bridge the gap between software development and threat hunting by simulating real-world attack vectors—such as SMB brute-forcing and persistence mechanisms—and engineering precise detection logic within Splunk to identify and mitigate them.
 
@@ -8,7 +8,7 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 ![Splunk Power User](https://img.shields.io/badge/Splunk-Power%20User-green)
 ![Google Cyber](https://img.shields.io/badge/Google-Cybersecurity-orange)
 
-<h2>Hardware Specs for the Host PC:</h2>
+<h1>Part 1: Hardware Specs for the Host PC:</h1>
 
 - CPU: AMD Ryzen 7 5700X3d (8 Core Procesor)
 - RAM: 64GB
@@ -38,7 +38,7 @@ Seasoned Web Developer (5+ years) transitioning into Cybersecurity, leveraging a
 </section>
 </div>
 
-<h2>Part 2: Configuring Kali Linux as the Attack Machine</h2>
+<h1>Part 2: Configuring Kali Linux as the Attack Machine</h1>
 
 ![2023-07-02_16-27-14](https://github.com/gavinpaul-6/SOC-Lab/assets/98987388/2cc51854-b589-4963-8d7b-c0595bb1c33b)
 
@@ -59,7 +59,7 @@ hydra on Kali linux Virtual Machine used to crack the login password of a known 
 - '-f' is for exiting as soon as a correct match is found
 - '-t 1' is to not run in parallel, this makes each attempt serial instead
 
-<h2>Filter logs on splunk to find the brute force attack and trace its origins</h2>
+<h1>Part 3: Use Splunk to detect the brute force attack</h1>
 
 The next step was to find the correct query on Splunk to find when and how the brute force attack was executed.
 
@@ -89,7 +89,7 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 
 ![2023-08-04_10-56-23](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/splunk_count_graph.png?raw=true)
 
-<h2>Creating Persistence:</h2>
+<h1>Part 4: Creating Persistence:</h1>
 
 <p>Create a file on the Kali machine (backdoor.ps1) that will add a new user in administrators named (haxor)</p>
 
@@ -111,11 +111,15 @@ Once I found the brute force attack and I knew the IP of the attacker, I can try
 
 ![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/cracking_hashes.png?raw=true)
 
-<h2>Part 4: Configuring Windows Server 2019 as a Domain Controller</h2>
+<p>Show all the passwords cracked that were exfiltrated</p>
+
+![2023-07-02_15-43-59](https://github.com/1travelintexan/my-SOC-lab/blob/main/images/show_cracked_hashes.png?raw=true)
+
+<h1>Part 5: Detecting Persistence with Splunk</h1>
 
 In this lab segment, I established an Active Directory domain using Windows Server 2019 as the Domain Controller, alongside two Windows 10 Pro virtual machines. Following this initial setup, I proceeded to rename the Domain Controller (GAVINPAUL-DC), initiated a restart, and then installed Active Directory Domain Services while configuring Active Directory Certificate Services through the Server Manager dashboard on the designated server.
 
-<h2>Part 5: Automating Users with PowerShell</h2>
+<h2>Part 6: Automating Users with PowerShell</h2>
 
 In this lab section, I aimed to simulate the Active Directory environment of a small to medium-sized business, opting for a more realistic approach by creating 1000 users, even though it wasn't a requirement. To accomplish this, I employed a Powershell script from Josh Madakor's AD Lab on YouTube and drew upon my investment in two Powershell books from the previous year to enhance my knowledge in the field.
 
